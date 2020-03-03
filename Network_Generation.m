@@ -1,6 +1,6 @@
 %% Generating a random Conservation graph based on different algorithms
 
-function [Inc_Con,Cc_Con,Ab,n_c,e_c,Sptree_branch,Sptree_chord,b,c] = Network_Generation(n,network_flag)
+function [Inc_Con,Cc_Con,Ab,n_c,e_c,branch,chord,b,c] = Network_Generation(n,network_flag)
 del_node = [];
 
 if network_flag==1
@@ -76,10 +76,6 @@ for i = 1:e_c
     Adj_Con(s(i),t(i)) = i;
 end
 
-% %% Drawing the conservation graph
-% G_con = digraph(Adj_Con);
-% plot(G_con,'Layout','force','EdgeLabel',G_con.Edges.Weight)
-
 %% Finding a spanning tree of the graph
 Adj_temp = Adj_Con;
 for i=1:n_c
@@ -91,16 +87,16 @@ for i=1:n_c
 end
 G_temp = graph(Adj_temp,'upper');
 T_con = minspantree(G_temp);
-Sptree_branch = T_con.Edges.Weight';
-Sptree_chord = setdiff(1:e_c,Sptree_branch);
+branch = T_con.Edges.Weight';
+chord = setdiff(1:e_c,branch);
 b = n_c-1; % No of branches
 c = e_c-b; % No of chords        
      
 %% Getting the f-cutset Matrix from Incidence Matrix 
-Cc_Con = (inv(Inc_Con(1:end-1,Sptree_branch))*Inc_Con(1:end-1,Sptree_chord)); % Non-identity part
+Cc_Con = (inv(Inc_Con(1:end-1,branch))*Inc_Con(1:end-1,chord)); % Non-identity part
 
 %% Partial Network Information
-Ab = Inc_Con(1:end-1,Sptree_branch);
+Ab = Inc_Con(1:end-1,branch);
 
 
 
