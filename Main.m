@@ -13,7 +13,7 @@ elseif (data_flag ~= 1 && data_flag ~=2)
 end
 
 if (data_flag ==1)
-    fprintf('\n Checking the provision of data in the workspace with the variable name X and partial incidence information with variable name Ab \n');
+    fprintf('\n Checking the provision of data in the workspace with the variable name X and partial incidence information with variable names Ab and Ab_edges \n');
     test = exist('X','var');
     if test==1
         fprintf(2, 'Data provided\n')
