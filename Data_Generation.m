@@ -1,4 +1,4 @@
-function [X,Sigma_e] = Data_Generation(n,branch,chord,b,c,Cc_Con,NSamples,SNR,noise_flag,Nrepeats)
+function [X,Sigma_e] = Data_Generation(n,branch,chord,b,c,Cc_Con,NSamples,SNR,noise_flag,Nrepeats,noise_var,noise_case)
 
 % Initialization
 mean_signal_choice = [100 200 300];        % Choice of mean value of a flow measurement
@@ -25,10 +25,10 @@ if noise_flag==0
     Sigma_e = [];
 else    
     %% Addition of Gaussian noise to the data set
-    if size(SNR,1)==1
-        sdv_noise = sdv_signal./(SNR*ones(n,1));
+    if noise_case==0
+        sdv_noise = sdv_signal./(noise_var*ones(n,1));
     else
-        sdv_noise = sdv_signal./SNR;
+        sdv_noise = sdv_signal./(SNR*ones(n,1));
     end
     Sigma_e = diag(sdv_noise.^2);      % Noise Covariance Matrix
     sdv_noise = repmat(sdv_noise,1,NSamples);
