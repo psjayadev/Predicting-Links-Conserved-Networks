@@ -170,8 +170,8 @@ else
     end
 
     %% Data generation using random generators
-    Chord flows are independently generated
-    Branch flows are generated from chord flows using cutset equations%
+    % Chord flows are independently generated
+    % Branch flows are generated from chord flows using cutset equations%
    [X,Sigma_e] = Data_Generation(e_c,branch,chord,b,c,Cc_Con,NSamples,SNR,noise_flag,Nrepeats);    
     
 end
@@ -234,11 +234,11 @@ if data_flag == 1
             end
         end
         if isequal(sort(correct_edges),1:e_c) 
-            fprintf(2, 'All unknown links are exactly identified from given data in %f seconds and the complete incidence matrix is as follows \n', time);
+            fprintf(2, 'All unknown links are possibly predicted from given data in %f seconds and the complete incidence matrix is as follows \n', time);
             Inc_pred
         else
             pred_edges = setdiff(correct_edges,branch);
-            fprintf(2, 'Among the unknown link connectivities, only %d could possibly be identified from given data', size(pred_edges,2));
+            fprintf(2, 'Among the unknown link connectivities, only %d could possibly be predicted from given data', size(pred_edges,2));
         end
     end
 else
