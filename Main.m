@@ -172,7 +172,7 @@ else
     %% Data generation using random generators
     % Chord flows are independently generated
     % Branch flows are generated from chord flows using cutset equations%
-   [X,Sigma_e] = Data_Generation(e_c,branch,chord,b,c,Cc_Con,NSamples,SNR,noise_flag,Nrepeats);    
+   [X,Sigma_e] = Data_Generation(e_c,branch,chord,b,c,Cc_Con,NSamples,SNR,noise_flag,Nrepeats,noise_var,noise_case);    
     
 end
 
@@ -265,7 +265,6 @@ else
         end
     else
         test = zeros(1,Nrepeats);
-        test1 = zeros(1,Nrepeats);
         time = zeros(1,Nrepeats);
         for i=1:Nrepeats
             tstart = tic;
@@ -286,8 +285,7 @@ else
                 temp = sortrows(temp',1)';
                 Inc_pred = temp(2:end,:);
                 if isequal(Inc_pred,Inc_Con)
-                    test(i) = 1;
-                    test1(i) = 100;
+                    test(i) = 100;
                 else
                     correct_edges = [];
                     for k=1:e_c
@@ -296,18 +294,17 @@ else
                         end
                     end
                     pred_edges = setdiff(correct_edges,branch);
-                    test1(i) = size(pred_edges,2)/c*100;
-                    fprintf(2, 'With dataset %d, only %0.2f percent of the unknown link connections could be identified correctly \n', i, test1(i));
+                    test(i) = size(pred_edges,2)/c*100;
+                    fprintf(2, 'With dataset %d, only %0.2f percent of the unknown link connections could be identified correctly \n', i, test(i));
                 end
             end
             time(i) = toc(tstart);
         end
         avg_time = sum(time)/Nrepeats;
-        avg_test = sum(test)/Nrepeats*100;
-        avg_test1 = sum(test1)/Nrepeats;
+        avg_test = sum(test)/Nrepeats;
         if avg_test==0
             fprintf(2, 'None of the unknown links could be identified from any of %d dataset(s) that were generated \n', Nrepeats);
-        else
+        elseif avg_test==100
             fprintf(2, 'All the unknown links are exactly identified in %0.2f percent cases of the %d dataset(s) that were generated at an average time of %f seconds \n', avg_test, Nrepeats, avg_time);
         end
     end
