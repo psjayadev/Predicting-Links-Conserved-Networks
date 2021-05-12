@@ -83,13 +83,13 @@ else
         network_flag = 1;
     end
 
-    n = input('\n <strong> Choose number of nodes for topology of network to be generated, a value between 10 and 100 </strong> \n');
+    n = input('\n <strong> Choose number of nodes for topology of network to be generated, a value between 5 and 100 </strong> \n');
     if isempty(n)
-        fprintf(2,'No input given: Set to default value of 10 \n')
-        n=10;
-    elseif (n<10 || n>100)
-        fprintf(2,'Invalid input: Set to default value of 10 \n');
-        n=10;
+        fprintf(2,'No input given: Set to default value of 5 \n')
+        n=5;
+    elseif (n<5 || n>100)
+        fprintf(2,'Invalid input: Set to default value of 5 \n');
+        n=5;
     end
 
     % Generating a random network and its conservation graph 
@@ -128,6 +128,7 @@ else
             fprintf(2, 'Invalid input \n');
             return
         elseif noise_case==0
+            SNR = [];
             noise_var = input('\n <strong> Choose noise variance in the range of 1-20 for homoscedastic case </strong> \n');
             if isempty(noise_var)
                 fprintf(2, 'No input given: Noise variance of 10 chosen by default \n');
