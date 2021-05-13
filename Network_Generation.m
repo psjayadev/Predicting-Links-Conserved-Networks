@@ -8,11 +8,11 @@ if network_flag==1
     G_ER = erdosRenyi(n,0.5,1);         
     Adj = full(G_ER.Adj);             % Adjacent matrix 
 elseif network_flag==2
-    % Generating a random small world network
+    % Generating a random Watts-Strogatz network
     G_SW = smallw(n,3,0.05);
     Adj = full(adjacency(G_SW));   % Adjacent matrix 
 else
-    % Generating a random scale free network
+    % Generating a random Barabasi-Albert network
     Adj = BAgraph_dir(n,5,3);      % Adjacent matrix 
 end
     

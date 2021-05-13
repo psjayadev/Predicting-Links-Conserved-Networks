@@ -74,7 +74,7 @@ if (data_flag ==1)
 
 else
 
-    network_flag = input('\n <strong> Enter 1 for Erdos-Renyi Network : Enter 2 for Small World Network : Enter 3 for Scale Free Network </strong> \n');
+    network_flag = input('\n <strong> Enter 1 for Erdos-Renyi Network : Enter 2 for Watts-Strogatz Network : Enter 3 for Barabasi-Albert Network </strong> \n');
     if isempty(network_flag)
         fprintf(2, 'No input given: Erdos-Renyi network chosen by default \n');
         network_flag = 1;
